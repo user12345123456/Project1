@@ -18,10 +18,14 @@ public class TXTFile {
         return str;
     }
     public void write(String fileName, Double str) throws IOException {
-        FileOutputStream outputStream = new FileOutputStream(fileName);
-        // byte[] strToBytes = str.getBytes();
-        outputStream.write(str.byteValue());
 
-        outputStream.close();
+        try (final FileWriter writer = new FileWriter(fileName, false))
+        {
+                final String s = Double.toString(str);
+                writer.write(s);
+        }
+        catch(IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
